@@ -29,6 +29,10 @@ namespace HomeworkFeb28.Web.Controllers
         public IActionResult Add(List<Person> people)
         {
             people = people.Where(p => p.FirstName != null && p.LastName != null && p.Age > 0).ToList();
+            if(people.Count == 0)
+            {
+                return Redirect("/");
+            }
             PeopleDbMngr mgr = new(_conStr);
             mgr.AddPeople(people);
             string text = people.Count == 1 ? "person" : "people";
